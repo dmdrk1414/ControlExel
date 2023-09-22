@@ -7,6 +7,13 @@ load_wb = load_workbook(
 # 시트 이름으로 불러오기
 load_ws = load_wb['Sheet1']
 
+# 시트 이름 가져오기
+sheet_names = load_wb.sheetnames
+
+# 시트 이름 출력
+for sheet_name in sheet_names:
+    print(sheet_name)
+
 # 셀 주소로 값 출력
 print(load_ws['B2'].value)
 
