@@ -13,10 +13,10 @@ def make_first_request_excel():
     current_month = today.month  # 현재 월
     current_day = today.day      # 현재 일
     # 재맞고 빌드업 참여현황(9.23기준)
-    inputFile = String.NAME_INPUT_FILE+"(" + str(current_month) + "." + \
+    inputFile = String.NAME_FIRST_INPUT_FILE+"(" + str(current_month) + "." + \
         str(current_day) + "기준)" + ".xlsx"
 
-    outputFile = String.NAME_OUT_FILE + ".xlsx"
+    outputFile = String.NAME_FIRST_OUT_FILE + ".xlsx"
 
     input_xcel_src = "./input_excel_file/" + inputFile
     output_xcel_src = "./output_excel_file/" + outputFile
