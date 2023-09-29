@@ -1,10 +1,10 @@
 # ========= first request ================
 
 # 첫번째 요구의 input file 이름
-NAME_INPUT_FILE = "재맞고 빌드업 참여현황"
+NAME_FIRST_INPUT_FILE = "재맞고 빌드업 참여현황"
 
 # 첫번째 요구의 output file 이름
-NAME_OUT_FILE = "첫번째 요구 out file"
+NAME_FIRST_OUT_FILE = "첫번째 요구 out file"
 
 # 첫번째 요구의 sheet 이름
 직업탐색과미래설계 = "직업탐색과미래설계"
@@ -28,6 +28,12 @@ three상담 = "3차상담"
 처리상태 = "처리상태"
 신청구분 = "신청구분"
 
+# ========= second request ================
+# 첫번째 요구의 input file 이름
+NAME_SECOND_INPUT_FILE = "개발요청2"
+
+# 첫번째 요구의 output file 이름
+NAME_SECOND_OUT_FILE = "두번째 요구 out file"
 
 # ========== 공통 작업 =====================
 
