@@ -74,6 +74,28 @@ second_2차_상담 = "2차상담"
 second_3차_상담 = "3차상담"
 
 
+# ========= second request ================
+# 세번째 요구의 input file 이름
+NAME_THIRD_INPUT_FILE = "개발요청3"
+
+# 세번째 요구의 output file 이름
+NAME_THIRD_OUT_FILE = "세번째 요구 out file"
+
+# 해당시트의 정보를 가져온다 2번째 행의 정보
+third_신청경로 = "신청경로"
+third_학번 = "학번"
+third_성명 = "성명"
+third_연락처 = "연락처"
+third_학년 = "학년"
+third_성별 = "성별"
+third_소속학과 = "소속학과"
+third_이수구분 = "이수구분"
+third_빌드업신청 = "빌드업신청"
+
+third_build_신청일자 = "신청일자"
+third_build_처리상태 = "처리상태"
+
+
 # ========== 공통 작업 =====================
 
 # 각 시트의 열들의 넓이
