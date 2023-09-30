@@ -1,77 +1,227 @@
 from openpyxl.utils import get_column_letter
 from openpyxl import load_workbook
 from openpyxl import Workbook
+import String
+from datetime import datetime
 
 
-def makeThirdExcel(workReadSheet, writeSheet, readExcelFile):
+# 두번째 요구의 sheet 이름
+second_1차상담_직탐미설 = String.second_1차상담_직탐미설
+second_1차상담_신입생세미나 = String.second_1차상담_신입생세미나
+second_1차상담_자기주도 = String.second_1차상담_자기주도
+second_1차상담_진로집단상담 = String.second_1차상담_진로집단상담
+second_1차상담_단기직무체험 = String.second_1차상담_단기직무체험
+
+second_2차상담_직탐미설 = String.second_2차상담_직탐미설
+second_2차상담_포트워크숍 = String.second_2차상담_포트워크숍
+second_2차상담_자기주도 = String.second_2차상담_자기주도
+second_2차상담_진로집단상담 = String.second_2차상담_진로집단상담
+second_2차상담_단기직무체험 = String.second_2차상담_단기직무체험
+
+second_3차상담_포트폴리오컨설팅 = String.second_3차상담_포트폴리오컨설팅
+
+# input excel file 의 시트이름
+직업탐색과미래설계 = String.second_직업탐색과미래설계
+신입생세미나 = String.second_신입생세미나
+포트폴리오워크숍 = String.second_포트폴리오워크숍
+포트폴리오컨설팅 = String.second_포트폴리오컨설팅
+자기주도 = String.second_자기주도
+진로집단상담 = String.second_진로집단상담
+단기직무체험 = String.second_단기직무체험
+
+first_상담 = String.second_1차_상담
+second_상담 = String.second_2차_상담
+third_상담 = String.second_3차_상담
+
+
+def make_second_excel(write_excel_file, read_excel_file):
     """_summary_
 
     Args:
-        workReadSheet (Excel sheet): 전산원 시트
-        writeSheet (Ecxel sheet):  쓰고싶은  엑셀의 시트
-        readExcelFile (Excel): 읽고 싶은 엑셀 
+        write_excel_file (Excel):  쓰고싶은  엑셀의 시트
+        read_excel_file (Excel): 읽고 싶은 엑셀 
     """
-    # 전산망의 기본적은 row 갯수
-    numBaseRow = 5
+    # 직업탐색과미래설계
+    make_sheet_finish(write_excel_file, read_excel_file,
+                      직업탐색과미래설계, second_1차상담_직탐미설, first_상담)
+    make_sheet_finish(write_excel_file, read_excel_file,
+                      직업탐색과미래설계, second_2차상담_직탐미설, second_상담)
 
-    # E열의 개수 확인
-    numOfRow = workReadSheet.max_row - numBaseRow
+    # 신입생세미나
+    make_sheet_finish(write_excel_file, read_excel_file,
+                      신입생세미나, second_1차상담_신입생세미나, first_상담)
 
-    build_sheet_str = "빌드업신청"
-    build_sheet = readExcelFile[build_sheet_str]
-    num_max_row_build_sheet = build_sheet.max_row
-    bild_base_row = 3
-    build_sheet_row_2 = build_sheet[2]  # 2번 행 선택
+    # 포트폴리오워크숍
+    make_sheet_finish(write_excel_file, read_excel_file,
+                      포트폴리오워크숍, second_2차상담_포트워크숍, second_상담)
 
-    # 5번 행의 전체 열을 검사하여 "학번"이 있는 열 찾기
-    row_5 = workReadSheet[5]  # 5번 행 선택
-    column_with_student_id = None
-    column_with_student_name = None
-    column_with_student_acknowledgment = None
-    computer_base_row = 6
-    computer_max_row = workReadSheet.max_row
+    # 자기주도
+    make_sheet_finish(write_excel_file, read_excel_file,
+                      자기주도, second_1차상담_자기주도, first_상담)
+    make_sheet_finish(write_excel_file, read_excel_file,
+                      자기주도, second_2차상담_자기주도, second_상담)
 
-    # write sheet 의  기본 row
-    write_sheet_base_row_start_write = 4
+    # 진로집단상담
+    make_sheet_finish(write_excel_file, read_excel_file,
+                      진로집단상담, second_1차상담_진로집단상담, first_상담)
+    make_sheet_finish(write_excel_file, read_excel_file,
+                      진로집단상담, second_2차상담_진로집단상담, second_상담)
 
-    #  전산원에서  학변이있는  열을 찾는방법
-    for cell in row_5:
-        if cell.value == "학번":
-            # 5번 행의 전체 열중에 "학번"이있는 열:
-            computer_column_with_student_id = cell.column_letter
+    # 단기직무체험
+    make_sheet_finish(write_excel_file, read_excel_file,
+                      단기직무체험, second_1차상담_단기직무체험, first_상담)
+    make_sheet_finish(write_excel_file, read_excel_file,
+                      단기직무체험, second_2차상담_단기직무체험, second_상담)
 
-    #   빌드업에서 학변이있는  열을 찾는방법
-    for cell in build_sheet_row_2:
-        if cell.value == "학번":
-            # 5번 행의 전체 열중에 "학번"이있는 열:
-            build_column_with_student_id = cell.column_letter
+    # 포트폴리오컨설팅
+    make_sheet_finish(write_excel_file, read_excel_file,
+                      포트폴리오컨설팅, second_3차상담_포트폴리오컨설팅, third_상담)
 
-    # 전산원 시트의 모든 학생 student id 탐색
-    for computer_row in range(computer_base_row, computer_max_row + 1):
-        #   전산원 학생의  한줄 학번
-        computer_value_in_id = workReadSheet[str(
-            computer_column_with_student_id) + str(computer_row)].value
 
-        for build_base in range(bild_base_row, num_max_row_build_sheet + 1):
-            #  build 시트에 있는 학생들의 학번
-            build_student_id = build_sheet[str(
-                build_column_with_student_id) + str(build_base)].value
+def make_sheet_finish(write_excel_file, read_excel_file, input_select_sheet_name, name_select_sheet, type_consultation):
+    """_summary_
 
-            if (computer_value_in_id == build_student_id):
-                #  전산망_sheet 특정 행의 모든 정보를 가져오기
-                computer_row_data = []
-                for cell in workReadSheet[computer_row]:
-                    computer_row_data.append(cell.value)
+    Args:
+        write_excel_file (Excel):  쓰고싶은  엑셀의 시트
+        read_excel_file (Excel): 읽고 싶은 엑셀 
+        name_select_sheet (string):  시트의 이름
+    """
+    #  해당시트의  학생정보가  시작한는 행번호
+    select_sheet_student_info_base_row = 3
 
-            # 배열의 각 원소를  특정 행의 각 셀에 입력
-            for i, value in enumerate(computer_row_data, start=1):
-                cell = writeSheet.cell(
-                    row=write_sheet_base_row_start_write, column=i)
-                cell.value = value
+    # read_excel_file 파일의 sheet 가져오기
+    read_select_sheet = read_excel_file[input_select_sheet_name]
 
-                #  전상망의  데이터를 3 번째  시트에  적고  그다음줄에  적을  준비를 .한다.
-                write_sheet_base_row_start_write = write_sheet_base_row_start_write + 1
+    # 2번째 sheet 열기
+    sheet_second_write_excel = write_excel_file[name_select_sheet]
 
-        # 만약에 해당 시트에 있는 학생들의 학번과, 전상망 찾고싶은 학생이 있는 학번의 학번이 같으면
-        # if build_student_id == value_in_id:
-        #  해당  전산원의  모든  자료를 .쓰기.
+    # 해당하는 시트의 행의 길이
+    read_select_sheet_max_row = read_select_sheet.max_row
+
+    # 선택 시트의 정보가있는 2 번째 row에대한  행을 다 가져온다
+    # no, 신청경로, 참여구분 ,....., 2차상담, 포트폴리오
+    # 2번 row 에  해당하는 정보가있다.
+    sheet_info_row_two = read_select_sheet[2]
+
+    name = None
+    contact = None
+    student_id = None
+    company_name = None
+    first_consultation_time_full = None
+    second_consultation_time_full = None
+    third_consultation_time_full = None
+
+    for cell in sheet_info_row_two:
+        if cell.value == String.second_성명:
+            name = cell.column_letter
+        if cell.value == String.second_연락처:
+            contact = cell.column_letter
+        if cell.value == String.second_학번:
+            student_id = cell.column_letter
+        if cell.value == String.second_삼당사명:
+            company_name = cell.column_letter
+        if cell.value == String.second_삼당사:
+            company_name = cell.column_letter
+        if cell.value == String.second_1차_상담:
+            first_consultation_time_full = cell.column_letter
+        if cell.value == String.second_2차_상담:
+            second_consultation_time_full = cell.column_letter
+        if cell.value == String.second_3차_상담:
+            third_consultation_time_full = cell.column_letter
+
+    # 해당 읽고싶어하는 sheet의  모든 학생 탐색
+    for select_sheet_row in range(select_sheet_student_info_base_row, read_select_sheet_max_row + 1):
+        # 이름
+        value_in_name = read_select_sheet[str(
+            name) + str(select_sheet_row)].value
+
+        # 연락처
+        value_in_contact = read_select_sheet[str(
+            contact) + str(select_sheet_row)].value
+
+        # 학번
+        value_in_id = read_select_sheet[str(
+            student_id) + str(select_sheet_row)].value
+
+        # 상담사
+        value_in_company_name = read_select_sheet[str(
+            company_name) + str(select_sheet_row)].value
+
+        value_in_consultation_date, value_in_consultation_hour, value_in_consultation_minute, value_in_consultation_time = None, None, None, None
+
+        if (type_consultation == first_상담):
+            # 1차상담 2023-04-12 10:00
+            value_in_first_consultation_time_full = read_select_sheet[str(
+                first_consultation_time_full) + str(select_sheet_row)].value
+
+            # 1차상담 2023-04-12 10:00 을 원하는  데이터 추출
+            data_result = extract_datetime_parts(
+                value_in_first_consultation_time_full)
+
+            # 상담일자 20230412, 상담시 10, 상담분 00, 상담시간 60분
+            value_in_consultation_date, value_in_consultation_hour, value_in_consultation_minute, value_in_consultation_time = data_result
+
+        elif (type_consultation == second_상담):
+            # 2차상담 2023-04-12 10:00
+            value_in_first_consultation_time_full = read_select_sheet[str(
+                second_consultation_time_full) + str(select_sheet_row)].value
+
+            # 2차상담 2023-04-12 10:00 을 원하는  데이터 추출
+            data_result = extract_datetime_parts(
+                value_in_first_consultation_time_full)
+
+            # 상담일자 20230412, 상담시 10, 상담분 00, 상담시간 60분
+            value_in_consultation_date, value_in_consultation_hour, value_in_consultation_minute, value_in_consultation_time = data_result
+        elif (type_consultation == third_상담):
+            # 3차상담 2023-04-12 10:00
+            value_in_first_consultation_time_full = read_select_sheet[str(
+                third_consultation_time_full) + str(select_sheet_row)].value
+
+            # 3차상담 2023-04-12 10:00 을 원하는  데이터 추출
+            data_result = extract_datetime_parts(
+                value_in_first_consultation_time_full)
+
+            # 상담일자 20230412, 상담시 10, 상담분 00, 상담시간 60분
+            value_in_consultation_date, value_in_consultation_hour, value_in_consultation_minute, value_in_consultation_time = data_result
+
+        # 엑셀에 원하는 정보 쓰기
+        # 이름
+        sheet_second_write_excel['B' +
+                                 str(select_sheet_row - 1)] = value_in_name
+        # 연락처
+        sheet_second_write_excel['C' +
+                                 str(select_sheet_row - 1)] = value_in_contact
+        # 학번
+        sheet_second_write_excel['D' +
+                                 str(select_sheet_row - 1)] = value_in_id
+        # 상담사
+        sheet_second_write_excel['J' +
+                                 str(select_sheet_row - 1)] = value_in_company_name
+        # 상담일자
+        sheet_second_write_excel['L' +
+                                 str(select_sheet_row - 1)] = value_in_consultation_date
+        sheet_second_write_excel['M' +
+                                 str(select_sheet_row - 1)] = value_in_consultation_hour
+        sheet_second_write_excel['N' +
+                                 str(select_sheet_row - 1)] = value_in_consultation_minute
+        sheet_second_write_excel['O' +
+                                 str(select_sheet_row - 1)] = value_in_consultation_time
+        # 순번
+        number = select_sheet_row - 2
+        sheet_second_write_excel['A' +
+                                 str(select_sheet_row - 1)] = number
+
+
+def extract_datetime_parts(date_time_str):
+    if (date_time_str != None):
+        # 입력된 문자열을 datetime 객체로 파싱합니다.
+        date_time = datetime.strptime(str(date_time_str), '%Y-%m-%d %H:%M:%S')
+
+        # 연도, 월, 일, 시간, 분을 추출합니다.
+        consultation_date = date_time.strftime('%Y%m%d')
+        consultation_hour = date_time.strftime('%H')
+        consultation_minute = date_time.strftime('%M')
+        consultation_time = "60"
+
+        return consultation_date, consultation_hour, consultation_minute, consultation_time
+    return None, None, None, None
